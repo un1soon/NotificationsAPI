@@ -1,0 +1,52 @@
+version: '3'
+
+services:
+  eureka-server:
+    build: /EurekaServer/
+    container_name: "eureka-server"
+    ports:
+      - "8761:8761"
+
+    healthcheck:
+      test: curl --fail http://localhost:8761 || exit 1
+      interval: 10s
+      retries: 5
+      timeout: 10s
+
+  api-gateway:
+    build: /Gateway/
+    container_name: "api-gateway"
+    ports:
+      - "8080:8080"
+
+    depends_on:
+      eureka-server:
+        condition: service_healthy
+
+
+  email-module:
+    build: /EmailModule/
+    container_name: email-notifications-module
+
+    depends_on:
+      eureka-server:
+        condition: service_healthy
+
+
+
+  push-module:
+    build: /PushModule/
+    container_name: push-notifications-module
+
+    depends_on:
+      eureka-server:
+        condition: service_healthy
+
+
+  sms-module:
+    build: /SMSModule/
+    container_name: sms-notifications-module
+
+    depends_on:
+      eureka-server:
+        condition: service_healthy

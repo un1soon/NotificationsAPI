@@ -5,11 +5,20 @@
   <groupId>ru.mikhalev</groupId>
   <artifactId>NotificationsAPI</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <packaging>jar</packaging>
+  <packaging>pom</packaging>
 
   <name>NotificationsAPI</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.test.skip>true</maven.test.skip>
   </properties>
+
+  <modules>
+    <module>EurekaServer</module>
+    <module>Gateway</module>
+    <module>EmailModule</module>
+    <module>PushModule</module>
+    <module>SMSModule</module>
+  </modules>
 </project>
